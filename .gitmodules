@@ -1,6 +1,6 @@
-[submodule "backend"]
-	path = backend
-	url = ./backend
 [submodule "front"]
-	path = front
-	url = ./front
+  path = front
+	url = git@github.com:wasuken/compiew-front.git
+[submodule "backend"]
+  path = backend
+	url = git@github.com:wasuken/compiew-backend.git
