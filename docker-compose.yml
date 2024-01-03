@@ -5,27 +5,31 @@ services:
     tty: true
     volumes:
       - ./backend:/go/src/github.com/wasuken/compiew
-    ports:
-      - "8082:8080"
   front:
     build: ./front
     tty: true
     volumes:
       - ./front:/usr/app
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
     ports:
-      - "3333:3000"
+      - "3333:80"
+    depends_on:
+      - api
+      - front
+      - adminer
   db:
     image: postgres:alpine
     environment:
       POSTGRES_USER: compiew
       POSTGRES_PASSWORD: compiew
       POSTGRES_DB: compiew
-    ports:
-      - 5433:5432
   adminer:
     image: adminer:latest
     environment:
       ADMINER_DEFAULT_SERVER: db
       ADMINER_DESIGN: ng9
-    ports:
-      - "7001:8080"
+    depends_on:
+      - db
